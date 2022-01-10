@@ -1,0 +1,13 @@
+%dw 2.0
+
+type auto_b52c90e0_1b3d_4392_ac44_88c1ac164944_Output_Payload = {
+  code: String, 
+  price: Number, 
+  origin: String, 
+  destination: String, 
+  ID?: Number, 
+  departureDate: String, 
+  emptySeats: Number, 
+  _?: Any
+}
+

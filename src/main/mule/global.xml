@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:request-config name="FlightBooking_HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="ca38c4e6-6f7e-4933-ab8d-a355fdf6eaae" >
+		<http:request-connection host="localhost" port="8084" />
+	</http:request-config>
+	<http:request-config name="CarBooking_HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="4e295201-8741-4d50-8f88-660c0d680a2a" >
+		<http:request-connection host="localhost" port="8083" />
+	</http:request-config>
+	<http:request-config name="HotelBooking_HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="d5169f16-f172-4a34-8257-c9a0593c0785" >
+		<http:request-connection host="localhost" port="8086" />
+	</http:request-config>
+	<configuration doc:name="Configuration" doc:id="41721353-c6fc-414c-b237-e6ad587d091e" defaultErrorHandler-ref="globalError_Handler" />
+	<error-handler name="globalError_Handler" doc:id="cf789f84-fdca-40b6-9cd8-3d481068e835" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="30bfc5de-c25e-449c-8ed5-c79764d1c93d" type="HTTP:BAD_REQUEST, HTTP:BAD_GATEWAY, HTTP:CONNECTIVITY" >
+			<set-payload value="Failed to connect.....Please Try Later...." doc:name="Set Payload" doc:id="08e065fb-9253-423e-bbe1-2c21544104d8" />
+		</on-error-propagate>
+		<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="9e00c033-deb1-4c91-bc63-7ce0be3c7c7d" type="ANY" >
+			<ee:transform doc:name="Transform Message" doc:id="fd6dd418-01a4-41bf-9f10-3e018b298771" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+	'message' : error.description
+}]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-continue>
+	</error-handler>
+</mule>

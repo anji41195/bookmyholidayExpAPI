@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="implementation-test-suite.xml" />
+	<munit:test name="implementation-test-suite-BookYourFlightTest" doc:id="31a1da87-bceb-4f24-849b-21aba7e523dc" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to BookYourFlight" doc:id="d74a855e-7cff-4580-85f9-c9421cba8f9e" name="BookYourFlight"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="implementation-test-suite-getFlightDetailsTest" doc:id="dabc6784-1e8b-4233-90b1-5a811c8b1e24" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getFlightDetails" doc:id="70a24c47-f086-4bb2-b241-6c638847207d" name="getFlightDetails"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="implementation-test-suite-getFlightDetailsByIDTest" doc:id="22a4f9c2-0b6f-4940-b0e3-48464f1e6e2b" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getFlightDetailsByID" doc:id="78ce05aa-08b5-40cf-9090-48f585c7f3f6" name="getFlightDetailsByID"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="implementation-test-suite-BookYourCarTest" doc:id="f9fba890-2825-4fe7-b793-5f681c1c2bfc" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to BookYourCar" doc:id="c643b2a7-f4ce-4c55-8039-e0ce8f080590" name="BookYourCar"/>
+		</munit:execution>
+	</munit:test>
+	<munit:test name="implementation-test-suite-getCarAvailabilityDetailsTest" doc:id="49c3a869-61ef-44fa-a885-64cfc0c05356" description="Test">
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getCarAvailabilityDetails" doc:id="55a77ae7-cbf9-492b-ba9f-cb37228ba0a4" name="getCarAvailabilityDetails"/>
+		</munit:execution>
+	</munit:test>
+
+
+</mule>

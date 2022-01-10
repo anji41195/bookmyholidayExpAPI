@@ -1,0 +1,13 @@
+%dw 2.0
+
+type auto_ed4ad966_c98d_4e66_a33c_bb47e853eaa6_Input_Payload = {
+  code: String, 
+  price: Number, 
+  origin: String, 
+  destination: String, 
+  ID?: Number, 
+  departureDate: String, 
+  emptySeats: Number, 
+  _?: Any
+}
+

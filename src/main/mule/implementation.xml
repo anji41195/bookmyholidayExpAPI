@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="BookYourFlight" doc:id="ed4ad966-c98d-4e66-a33c-bb47e853eaa6" >
+		<http:request method="POST" doc:name="BookYourFlight(flightbookings)" doc:id="9cf55a1d-3a0a-4206-b9d9-48f41ba81ae2" config-ref="FlightBooking_HTTP_Request_configuration" path="/api/flightbookings"/>
+		<ee:transform doc:name="Transform Message" doc:id="e4909fe2-1886-4d74-a70c-74c2b1eab5e9" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="getFlightDetails" doc:id="40d57df4-29fd-4853-a703-d323c694f171" >
+		<http:request method="GET" doc:name="GetFlightDetails" doc:id="119fe49d-cf7b-4bc6-ad2d-6f094c40c87a" config-ref="FlightBooking_HTTP_Request_configuration" path="/api/indigo">
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"origin" : attributes.queryParams.origin,
+	"destination" : attributes.queryParams.destination
+}]]]></http:query-params>
+		</http:request>
+		<ee:transform doc:name="Transform Message" doc:id="7782a435-f2ea-47ec-ada0-844d8da15bf9" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="getFlightDetailsByID" doc:id="b52c90e0-1b3d-4392-ac44-88c1ac164944" >
+		<http:request method="GET" doc:name="getFlightDetailsByID" doc:id="51532b01-9902-4faa-a993-6e9c1fedb68e" config-ref="FlightBooking_HTTP_Request_configuration" path="/api/indigo/{ID}">
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"ID" : attributes.uriParams.ID
+}]]]></http:uri-params>
+		</http:request>
+		<ee:transform doc:name="Transform Message" doc:id="cc175881-a20c-4f61-a1e5-9d58e36bb4f5" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="BookYourCar" doc:id="3436b042-72dc-4917-9c03-e665defdb5a4" >
+		<http:request method="POST" doc:name="BookYourCar" doc:id="1ca7d246-93f6-4d19-8ffe-907085374987" config-ref="CarBooking_HTTP_Request_configuration" path="/api/carbookings"/>
+		<ee:transform doc:name="Transform Message" doc:id="b5575a1e-61f5-4f1b-9d01-94c2250d18e4" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="getCarAvailabilityDetails" doc:id="62d84648-9142-43e9-b82a-47053f1c2cde" >
+		<http:request method="GET" doc:name="getCarAvailabilityDetails" doc:id="49c9fe42-52da-4cba-b1e5-84a789245986" config-ref="CarBooking_HTTP_Request_configuration" path="/api/cars">
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"source" : attributes.queryParams.source,
+	"destination" : attributes.queryParams.destination
+	}]]]></http:query-params>
+		</http:request>
+		<ee:transform doc:name="Transform Message" doc:id="7cba3774-2a38-4e48-99ea-a2847e12e8d0" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
