@@ -80,4 +80,52 @@ payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 	</flow>
+	<flow name="GetHotelDetails" doc:id="acba33e2-d4e3-4e38-b2dc-86116a6e9e98" >
+		<http:listener doc:name="Listener" doc:id="0ffe737b-b5c2-4623-83cd-da1efaa4d528" config-ref="bookmyholiday-exp-api-httpListenerConfig" path="/getHotelDetails"/>
+		<http:request method="POST" doc:name="RequestForHotelDetails" doc:id="ea138ddf-dfb1-4fbc-9418-186d6097aaa0" config-ref="HotelBooking_HTTP_Request_configuration" path="/HotelBooking/HotelBookingSOAP"/>
+		<ee:transform doc:name="ConvertToJSON" doc:id="5df68973-63a4-4e12-a7d5-f24c4f5ec452" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="getHotelDetailsByID" doc:id="0d0d5981-d2c5-41fe-b33b-dbd9894e6da3" >
+		<http:listener doc:name="Listener" doc:id="4f5d8eff-bef0-4d9c-9b4b-202975c3e2b5" config-ref="bookmyholiday-exp-api-httpListenerConfig" path="/getHotelDetailsByID"/>
+		<http:request method="POST" doc:name="RequestHotelDetailsByID" doc:id="2ad8f5f1-f5fd-44da-9b37-836fde614a29" config-ref="HotelBooking_HTTP_Request_configuration" path="/HotelBooking/HotelBookingSOAP"/>
+		<ee:transform doc:name="Transform Message" doc:id="afb988c6-9115-4c0b-8700-423cd9e40eb3" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="BookYourHotel" doc:id="7e57575d-9f86-467a-889e-87a920bb24f2" >
+		<http:listener doc:name="Listener" doc:id="c60d71be-b346-4fb8-9b33-2922e1959581" config-ref="bookmyholiday-exp-api-httpListenerConfig" path="/bookhotel"/>
+		<http:request method="POST" doc:name="Request" doc:id="a761a286-7d14-4c52-8447-a0f5224523a3" config-ref="HotelBooking_HTTP_Request_configuration" path="/HotelBooking/HotelBookingSOAP"/>
+		<ee:transform doc:name="Transform Message" doc:id="6ba85c1e-ecf3-476d-8da5-d6fe51e402b9" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="CancelYourHotelBooking" doc:id="f44beaf6-3c98-47ed-9499-615c0ed75f62" >
+		<http:listener doc:name="Listener" doc:id="b4a693ab-0f0b-45d2-82d7-833f6c24c671" config-ref="bookmyholiday-exp-api-httpListenerConfig" path="/cancelhotelbooking"/>
+		<http:request method="POST" doc:name="RequestToCancelHotelBooking" doc:id="3fdade58-78d8-4fb4-aaec-c4c665633da1" config-ref="HotelBooking_HTTP_Request_configuration" path="/HotelBooking/HotelBookingSOAP"/>
+		<ee:transform doc:name="Transform Message" doc:id="63d18401-ddac-4718-9a80-3f9fafe7d938" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
 </mule>
